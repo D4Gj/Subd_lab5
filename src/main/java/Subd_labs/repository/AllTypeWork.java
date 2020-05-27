@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
-public class GetAllTypeWork {
+public class AllTypeWork {
     private String nameTypeWork;
 
     public String getNameTypeWork() {

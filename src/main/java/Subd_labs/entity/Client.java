@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Clients {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -25,7 +25,7 @@ public class Clients {
 
     private String patronymic;
 
-    private BigInteger phonenum;
+    private BigInteger phoneNum;
 
     @OneToMany
     private List<Orders> Orders;
@@ -37,7 +37,7 @@ public class Clients {
                 " name='" + name + ",\n" +
                 " surname='" + surname + ",\n" +
                 " patronymic=" + patronymic + ",\n"+
-                " phonenum=" + phonenum + ",\n"+
+                " phonenum=" + phoneNum + ",\n"+
                 "}\n";
     }
 }

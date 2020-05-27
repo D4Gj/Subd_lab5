@@ -18,7 +18,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String postname;
+    private String postName;
     @OneToMany
     private List<Staff> staff;
 
@@ -27,7 +27,7 @@ public class Post {
     public String toString(){
         return "Orders {" + "\n" +
                 " id=" + id + ",\n" +
-                " postname=" + postname + ",\n" +
+                " postname=" + postName + ",\n" +
                 " salary=" + salary + ",\n" +
                 "}\n";
     }

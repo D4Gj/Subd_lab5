@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -23,7 +22,7 @@ public class Orders {
     @ManyToOne
     private Costs costs;
     @ManyToOne
-    private Clients clients;
+    private Client client;
     @OneToMany
     private List<Donework> Doneworks;
 
@@ -32,7 +31,7 @@ public class Orders {
     public String toString(){
         return "Orders {" + "\n" +
                 " id=" + id + ",\n" +
-                " client='" + clients + ",\n" +
+                " client='" + client + ",\n" +
                 " costs" + costs  +
                 " date='" + date + ",\n" +
                 "}\n";

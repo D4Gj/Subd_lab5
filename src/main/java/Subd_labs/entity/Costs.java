@@ -6,10 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -23,20 +20,20 @@ public class Costs {
     private Integer id;
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    private String typework;
+    private String typeWork;
 
-    private double sumprices;
+    private double sumPrices;
     @OneToMany
     private List<Orders> order;
-    private String paymethod;
+    private String payMethod;
 
     @Override
     public String toString() {
         return "Costs {\n" +
                 " id=" + id + ",\n" +
-                " typework='" + typework + ",\n" +
-                " Sumprices=" +  sumprices + ",\n" +
-                "paymethod=" + paymethod +
+                " typework='" + typeWork + ",\n" +
+                " sumprices=" + sumPrices + ",\n" +
+                "paymethod=" + payMethod +
                 "}" + "\n";
     }
 

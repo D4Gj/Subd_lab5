@@ -8,9 +8,9 @@ import java.util.List;
 
 @Repository
 public interface CostsRepository extends JpaRepository<Costs, Integer> {
-    @Query("SELECT new Subd_labs.repository.GetAllTypeWork(cost.typework) FROM Costs cost")
-    List<GetAllTypeWork> getAllTypeWork();
+    @Query("SELECT new Subd_labs.repository.AllTypeWork(cost.typeWork) FROM Costs cost")
+    List<AllTypeWork> getAllTypeWork();
 
-    @Query("Select new Subd_labs.repository.CostsTypeworkSum(cost.typework,cost.sumprices) from Costs cost")
-    List<CostsTypeworkSum> getAllTypeWorkSums();
+    @Query("Select new Subd_labs.repository.CostsTypeworkSum(cost.typeWork,cost.sumPrices) from Costs cost")
+    public List<CostsTypeworkSum> getAllTypeWorkSums();
 }

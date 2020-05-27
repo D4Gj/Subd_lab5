@@ -11,13 +11,13 @@ import lombok.ToString;
 @ToString
 public class CostsTypeworkSum {
     private String typeworkName;
-    private double sumprices;
+    private double sumPrices;
 
     public String getTypeworkName() {
         return typeworkName;
     }
 
     public double getSumprices() {
-        return sumprices;
+        return sumPrices;
     }
 }

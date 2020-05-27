@@ -2,27 +2,23 @@ package Subd_labs;
 
 import Subd_labs.entity.*;
 import Subd_labs.repository.*;
-import lombok.AllArgsConstructor;
+import Subd_labs.service.serviceInterfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import Subd_labs.service.implementation.ClientServiceImpl;
 
-import javax.persistence.Convert;
-import javax.persistence.Converter;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
 public class SubdApplication {
 
-	private ClientsRepository clientsRepository;
+	private ClientRepository clientRepository;
 
 	private DoneworkRepository doneworkRepository;
 
@@ -36,21 +32,30 @@ public class SubdApplication {
 
 	private StaffRepository staffRepository;
 
+	private ClientService clientService;
+	private CostsService costsService;
+	private DoneworkService doneworkService;
+	private FirmService firmService;
+	private OrdersService ordersService;
+	private PostService postService;
+	private StaffService staffService;
+
 	@Autowired
-	public SubdApplication(ClientsRepository clientsRepository,
-						   CostsRepository costsRepository,
-						   DoneworkRepository doneworkRepository,
-						   FirmRepository firmRepository,
-						   OrdersRepository ordersRepository,
-						   PostRepository postRepository,
-						   StaffRepository staffRepository){
-		this.clientsRepository=clientsRepository;
-		this.firmRepository=firmRepository;
-		this.doneworkRepository=doneworkRepository;
-		this.costsRepository=costsRepository;
-		this.ordersRepository=ordersRepository;
-		this.postRepository=postRepository;
-		this.staffRepository=staffRepository;
+	public SubdApplication(ClientRepository clientRepository, DoneworkRepository doneworkRepository, FirmRepository firmRepository, CostsRepository costsRepository, OrdersRepository ordersRepository, PostRepository postRepository, StaffRepository staffRepository, ClientService clientService, CostsService costsService, DoneworkService doneworkService, FirmService firmService, OrdersService ordersService, PostService postService, StaffService staffService) {
+		this.clientRepository = clientRepository;
+		this.doneworkRepository = doneworkRepository;
+		this.firmRepository = firmRepository;
+		this.costsRepository = costsRepository;
+		this.ordersRepository = ordersRepository;
+		this.postRepository = postRepository;
+		this.staffRepository = staffRepository;
+		this.clientService = clientService;
+		this.costsService = costsService;
+		this.doneworkService = doneworkService;
+		this.firmService = firmService;
+		this.ordersService = ordersService;
+		this.postService = postService;
+		this.staffService = staffService;
 	}
 
 	public static void main(String[] args) {
@@ -61,16 +66,10 @@ public class SubdApplication {
 	public void onStart() {
 		//SecondRequest();
 		//FirstRequest();
-		ThirdRequest();
-		//readCosts();
-		//readClients();
-		//readDoneWork();
-		//readFirms();
-		//readOrders();
-		//readPost();
-		//readStaff();
+		//ThirdRequest();
+		System.out.println(clientService.getAll());
 	}
-	public void FirstRequest() {
+	/*public void FirstRequest() {
 		Timestamp start = new Timestamp(System.currentTimeMillis());
 		List<CostsTypeworkSum> resultFirst = costsRepository.getAllTypeWorkSums();
 		Timestamp end = new Timestamp(System.currentTimeMillis());
@@ -80,19 +79,20 @@ public class SubdApplication {
 			System.out.print("Название работы: " + CostsTypeworkSum.getTypeworkName() + " ");
 			System.out.println("Цена: " + CostsTypeworkSum.getSumprices());
 		});
-	}
+	}*/
 	public void SecondRequest(){
 		Timestamp start = new Timestamp(System.currentTimeMillis());
-		List<GetAllTypeWork> resultSecond = costsRepository.getAllTypeWork();
+		List<AllTypeWork> resultSecond = costsRepository.getAllTypeWork();
 		Timestamp end = new Timestamp(System.currentTimeMillis());
 		System.out.println("Время выполнения запроса: " + (end.getTime() - start.getTime()) + " мс");
 
-		resultSecond.forEach(GetAllTypeWork -> {
-			System.out.println("Название работы: " + GetAllTypeWork.getNameTypeWork() + " ");
+		resultSecond.forEach(AllTypeWork -> {
+			System.out.println("Название работы: " + AllTypeWork.getNameTypeWork() + " ");
 		});
 	}
-	public void ThirdRequest(){
-		Date date = new Date(System.currentTimeMillis()-2592000000L);
+	/*public void ThirdRequest(){
+		long month = 2592000000L;
+		Date date = new Date(System.currentTimeMillis()-month);
 		Timestamp start = new Timestamp(System.currentTimeMillis());
 		List<LastMonthRecord> resultThird = ordersRepository.findDate(date);
 		Timestamp end = new Timestamp(System.currentTimeMillis());
@@ -104,62 +104,5 @@ public class SubdApplication {
 			System.out.println("Имя: " + LastMonthRecord.getFirstName());
 			System.out.println("Фамилия: " + LastMonthRecord.getLastName());
 		});
-	}
-
-	private void createStaff(String post, String name, String surname, String patronymic, BigInteger phonenum) {
-	Staff staff = new Staff();
-	staff.Construct(null,name,surname, patronymic,phonenum);
-	staffRepository.save(staff);
-	}
-
-	private void deleteStaff() {
-		staffRepository.deleteById(5);
-	}
-	private void updateStaff(Integer id,String post, String name,String surname,String patronymic, BigInteger phonenum) {
-		Staff staff = new Staff();
-		staff.Construct(id,name,surname, patronymic,phonenum);
-		staffRepository.save(staff);
-	}
-
-	private void readCosts() {
-		costsRepository.findAll(PageRequest.of(0, 3, Sort.Direction.DESC, "typework"))
-				.toList()
-				.forEach(System.out::println);
-	}
-
-	private void readClients() {
-		clientsRepository.findAll(PageRequest.of(0, 2, Sort.Direction.DESC, "surname"))
-				.toList()
-				.forEach(System.out::println);
-	}
-
-	private void readDoneWork() {
-		doneworkRepository.findAll(PageRequest.of(0, 2, Sort.Direction.DESC, "price"))
-				.toList()
-				.forEach(System.out::println);
-	}
-
-	private void readFirms() {
-		firmRepository.findAll(PageRequest.of(0, 2, Sort.Direction.DESC, "address"))
-				.toList()
-				.forEach(System.out::println);
-	}
-
-	private void readOrders(){
-		ordersRepository.findAll(PageRequest.of(0, 2, Sort.Direction.DESC, "date"))
-				.toList()
-				.forEach(System.out::println);
-	}
-
-	private void readPost(){
-		postRepository.findAll(PageRequest.of(0, 2, Sort.Direction.DESC, "postname"))
-				.toList()
-				.forEach(System.out::println);
-	}
-
-	private void readStaff(){
-		staffRepository.findAll(PageRequest.of(0, 2, Sort.Direction.DESC, "name"))
-				.toList()
-				.forEach(System.out::println);
-	}
+	}*/
 }

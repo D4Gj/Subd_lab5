@@ -25,7 +25,7 @@ public class Donework {
     private Orders Orders;
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    private String typework;
+    private String typeWork;
 
     private Double price;
 
@@ -33,7 +33,7 @@ public class Donework {
     public String toString() {
         return "Donework {\n" +
                 " id=" + id + ",\n" +
-                " typework=" + typework + ",\n" +
+                " typework=" + typeWork + ",\n" +
                 " price=" + price +
                 "}" + "\n";
     }

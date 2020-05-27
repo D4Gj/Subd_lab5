@@ -1,13 +1,11 @@
 package Subd_labs.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -31,17 +29,16 @@ public class Staff {
 
     private String patronymic;
 
-    private BigInteger phonenum;
+    private BigInteger phoneNum;
 
     private Double perks;
-
-    public Staff(){}
-
-    public void Construct(Integer id,String name, String surname,String patronymic, BigInteger phonenum){
+    public Staff(){
+    }
+    public Staff(Integer id, String name, String surname, String patronymic, BigInteger phonenum){
     this.name=name;
     this.surname=surname;
     this.patronymic=patronymic;
-    this.phonenum=phonenum;
+    this.phoneNum =phonenum;
     }
 
     public String toString() {
@@ -53,7 +50,7 @@ public class Staff {
                 " donework=" + donework + ",\n"+
                 " firm=" + firm + ",\n"+
                 " post=" + post + ",\n"+
-                " phonenum=" +  phonenum + ",\n" +
+                " phonenum=" + phoneNum + ",\n" +
                 " perks=" + perks +
                 "}" + "\n";
     }
