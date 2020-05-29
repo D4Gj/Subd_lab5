@@ -67,9 +67,13 @@ public class SubdApplication {
 		//SecondRequest();
 		//FirstRequest();
 		//ThirdRequest();
-		System.out.println(clientService.getAll());
+		//System.out.println(clientService.getAll());
+		//System.out.println(clientService.getById(1));
+		Staff st = new Staff(null,"Viktor","Viktorov","Viktorovich",null);
+		staffService.addStaff(st);
+
 	}
-	/*public void FirstRequest() {
+	public void FirstRequest() {
 		Timestamp start = new Timestamp(System.currentTimeMillis());
 		List<CostsTypeworkSum> resultFirst = costsRepository.getAllTypeWorkSums();
 		Timestamp end = new Timestamp(System.currentTimeMillis());
@@ -79,7 +83,7 @@ public class SubdApplication {
 			System.out.print("Название работы: " + CostsTypeworkSum.getTypeworkName() + " ");
 			System.out.println("Цена: " + CostsTypeworkSum.getSumprices());
 		});
-	}*/
+	}
 	public void SecondRequest(){
 		Timestamp start = new Timestamp(System.currentTimeMillis());
 		List<AllTypeWork> resultSecond = costsRepository.getAllTypeWork();
@@ -90,7 +94,7 @@ public class SubdApplication {
 			System.out.println("Название работы: " + AllTypeWork.getNameTypeWork() + " ");
 		});
 	}
-	/*public void ThirdRequest(){
+	public void ThirdRequest(){
 		long month = 2592000000L;
 		Date date = new Date(System.currentTimeMillis()-month);
 		Timestamp start = new Timestamp(System.currentTimeMillis());
@@ -104,5 +108,5 @@ public class SubdApplication {
 			System.out.println("Имя: " + LastMonthRecord.getFirstName());
 			System.out.println("Фамилия: " + LastMonthRecord.getLastName());
 		});
-	}*/
+	}
 }
